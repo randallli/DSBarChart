@@ -102,6 +102,7 @@
     CGContextDrawPath(context, kCGPathStroke);
     
     /// pivot
+    UIColor * pivotColor = [UIColor redColor];
     CGRect frame = CGRectZero;
     frame.origin.x = rect.origin.x;
     frame.origin.y = rect.origin.y - LBL_HEIGHT;
@@ -110,13 +111,13 @@
     UILabel *pivotLabel = [[UILabel alloc] initWithFrame:frame];
     pivotLabel.text = [NSString stringWithFormat:@"%d", (int)self.maxLen];
     pivotLabel.backgroundColor = [UIColor clearColor];
-    pivotLabel.textColor = self.color;
+    pivotLabel.textColor = pivotColor;
     [self addSubview:pivotLabel];
     
     /// A line
     frame = rect;
-    frame.size.height = 1.0;
-    CGContextSetFillColorWithColor(context, [[UIColor redColor] colorWithAlphaComponent:0.25f].CGColor);
+    frame.size.height = 0.25f;
+    CGContextSetFillColorWithColor(context, pivotColor.CGColor);
     CGContextFillRect(context, frame);
 }
 
