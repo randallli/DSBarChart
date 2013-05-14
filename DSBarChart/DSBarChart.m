@@ -12,6 +12,7 @@
 
 @property (nonatomic) NSInteger column;
 @property (nonatomic) CGFloat percentInColumn;
+@property (nonatomic) NSString * text;
 @end
 
 @implementation DSBarChartInterestPoint
@@ -62,6 +63,7 @@
     DSBarChartInterestPoint * interestPoint = [[DSBarChartInterestPoint alloc] init];
     interestPoint.column = column;
     interestPoint.percentInColumn = percentInColumn;
+    interestPoint.text = text;
     
     [self.interestPoints addObject:interestPoint];
     
@@ -172,8 +174,27 @@
     CGContextFillRect(context, frame);
     
     ///draw interest points
-    
+    CGContextSetLineWidth(context, lineWidth);
+    for (DSBarChartInterestPoint * interestPoint in self.interestPoints) {
+        CGFloat xPosition = paddingBetweenBars + (interestPoint.column + interestPoint.percentInColumn) * rectWidth;
+        CGContextMoveToPoint(context, xPosition, 0);
+        CGContextAddLineToPoint(context, xPosition, rect.size.height - LBL_HEIGHT);
+        CGContextDrawPath(context, kCGPathStroke);
+        
+        
+        /// value Label
+        UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xPosition - rectWidth/2, - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
+        valueLabel.text = [NSString stringWithFormat:@"%@", interestPoint.text];
+        valueLabel.adjustsFontSizeToFitWidth = TRUE;
+        valueLabel.adjustsLetterSpacingToFitWidth = TRUE;
+        valueLabel.textColor = self.color;
+        [valueLabel setTextAlignment:NSTextAlignmentCenter];
+        valueLabel.backgroundColor = [UIColor clearColor];
+        [self addSubview:valueLabel];
+    }
 }
+
+
 
 
 @end

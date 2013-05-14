@@ -60,6 +60,9 @@
         chrt.opaque = NO;
         chrt.shouldCalculateMaxValue = NO;
         chrt.maxLen = 90;
+        
+        [chrt addInterestPointWithText:@"balah" inColumn:2 percentageInColumn:0.9f];
+        
         [ChartView addSubview:chrt];
     }
     
