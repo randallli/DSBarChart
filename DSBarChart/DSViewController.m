@@ -37,6 +37,8 @@
                                                   references:refs
                                                    andValues:vals];
         chrt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        
+        [chrt addInterestPointWithText:@"Randall's" inColumn:4 percentageInColumn:0.9f];
         [ChartView addSubview:chrt];
         maxValue = chrt.maxLen;
     }
@@ -61,7 +63,7 @@
         chrt.shouldCalculateMaxValue = NO;
         chrt.maxLen = 90;
         
-        [chrt addInterestPointWithText:@"balah" inColumn:2 percentageInColumn:0.9f];
+        [chrt addInterestPointWithText:@"Just Scored" inColumn:2 percentageInColumn:0.19f];
         
         [ChartView addSubview:chrt];
     }
