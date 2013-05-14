@@ -45,7 +45,10 @@
 }
 
 -(void)calculate{
-    NSAssert(self.vals.count == self.refs.count, @"expecting refs and vals to be the same size. found %i and %i", self.vals.count, self.refs.count);
+    if(self.vals && self.refs)
+    {
+        NSAssert(self.vals.count == self.refs.count, @"expecting refs and vals to be the same size. found %i and %i", self.vals.count, self.refs.count);
+    }
     for (NSNumber *val in self.vals) {
         float iLen = [val floatValue];
         if (iLen > self.maxLen) {
