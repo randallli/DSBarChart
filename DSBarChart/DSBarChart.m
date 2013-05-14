@@ -154,24 +154,24 @@
     CGContextAddPath(context, pathRef);
     CGContextDrawPath(context, kCGPathStroke);
     
-    /// pivot
-    UIColor * pivotColor = [UIColor redColor];
-    CGRect frame = CGRectZero;
-    frame.origin.x = rect.origin.x;
-    frame.origin.y = rect.origin.y - LBL_HEIGHT;
-    frame.size.height = LBL_HEIGHT;
-    frame.size.width = rect.size.width;
-    UILabel *pivotLabel = [[UILabel alloc] initWithFrame:frame];
-    pivotLabel.text = [NSString stringWithFormat:@"%d", (int)self.maxLen];
-    pivotLabel.backgroundColor = [UIColor clearColor];
-    pivotLabel.textColor = pivotColor;
-    [self addSubview:pivotLabel];
-    
-    /// A line
-    frame = rect;
-    frame.size.height = 0.25f;
-    CGContextSetFillColorWithColor(context, pivotColor.CGColor);
-    CGContextFillRect(context, frame);
+//    /// pivot
+//    UIColor * pivotColor = [UIColor redColor];
+//    CGRect frame = CGRectZero;
+//    frame.origin.x = rect.origin.x;
+//    frame.origin.y = rect.origin.y - LBL_HEIGHT;
+//    frame.size.height = LBL_HEIGHT;
+//    frame.size.width = rect.size.width;
+//    UILabel *pivotLabel = [[UILabel alloc] initWithFrame:frame];
+//    pivotLabel.text = [NSString stringWithFormat:@"%d", (int)self.maxLen];
+//    pivotLabel.backgroundColor = [UIColor clearColor];
+//    pivotLabel.textColor = pivotColor;
+//    [self addSubview:pivotLabel];
+//    
+//    /// A line
+//    frame = rect;
+//    frame.size.height = 0.25f;
+//    CGContextSetFillColorWithColor(context, pivotColor.CGColor);
+//    CGContextFillRect(context, frame);
     
     ///draw interest points
     CGContextSetLineWidth(context, lineWidth);
@@ -183,7 +183,7 @@
         
         
         /// value Label
-        UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xPosition - rectWidth/2, - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
+        UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xPosition - rectWidth, - LBL_HEIGHT, rectWidth * 2, LBL_HEIGHT)];
         valueLabel.text = [NSString stringWithFormat:@"%@", interestPoint.text];
         valueLabel.adjustsFontSizeToFitWidth = TRUE;
         valueLabel.adjustsLetterSpacingToFitWidth = TRUE;
