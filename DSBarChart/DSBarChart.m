@@ -45,6 +45,13 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     float LBL_HEIGHT = 20.0f, iLen, x, heightRatio, height, y;
     UIColor *iColor ;
+    /// Set color and draw the bar
+    iColor = [UIColor greenColor];
+    CGContextSetFillColorWithColor(context, [iColor colorWithAlphaComponent:0.25f].CGColor);
+    
+    CGContextMoveToPoint(context, 0, rect.size.height);
+    CGContextSetLineWidth(context, lineWidth);
+    CGContextSetStrokeColorWithColor(context, iColor.CGColor);
     
     /// Draw Bars
     for (int barCount = 0; barCount < self.numberOfBars; barCount++) {
@@ -67,19 +74,24 @@
         lblRef.backgroundColor = [UIColor clearColor];
         [self addSubview:lblRef];
         
-        /// Set color and draw the bar
-        iColor = [UIColor colorWithRed:(1 - heightRatio) green:(heightRatio) blue:(0) alpha:1.0];
+        if(paddingBetweenBars == 0)
+        {
+            CGContextAddLineToPoint(context, x, y);
+            CGContextAddLineToPoint(context, x+rectWidth, y);
+            
+        }
+        else
+        {
+            CGRect barRect = CGRectMake(paddingBetweenBars + x, y, rectWidth, height);
+            CGContextAddRect(context, barRect);
+        }
         
-        CGContextSetFillColorWithColor(context, [iColor colorWithAlphaComponent:0.25f].CGColor);
-        CGRect barRect = CGRectMake(paddingBetweenBars + x, y, rectWidth, height);
-        //        CGContextFillRect(context, barRect);
-        CGContextSetLineWidth(context, lineWidth);
-        CGContextSetStrokeColorWithColor(context, iColor.CGColor);
-        CGContextAddRect(context, barRect);
-        
-        CGContextDrawPath(context, kCGPathFillStroke);
         
     }
+    
+    CGContextAddLineToPoint(context, rect.size.width, rect.size.height);
+    CGContextClosePath(context);
+    CGContextDrawPath(context, kCGPathFillStroke);
     
     /// pivot
     CGRect frame = CGRectZero;
