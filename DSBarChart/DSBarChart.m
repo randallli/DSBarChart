@@ -44,17 +44,17 @@
     float rectWidth = (float)(rect.size.width-(self.numberOfBars * paddingBetweenBars )) / (float)self.numberOfBars;
     CGContextRef context = UIGraphicsGetCurrentContext();
     float LBL_HEIGHT = 20.0f, iLen, x, heightRatio, height, y;
-    UIColor *iColor ;
+    UIColor * evenColumnsColor = [self.color colorWithAlphaComponent:0.25f];
+    UIColor * oddColumnsColor = [self.color colorWithAlphaComponent:0.2f];
     /// Set color and draw the bar
-    iColor = [UIColor greenColor];
-    CGContextSetFillColorWithColor(context, [iColor colorWithAlphaComponent:0.25f].CGColor);
+    CGContextSetStrokeColorWithColor(context, self.color.CGColor);
+    CGContextSetFillColorWithColor(context, evenColumnsColor.CGColor);
     
     CGMutablePathRef pathRef = CGPathCreateMutable();
     
     CGPathMoveToPoint(pathRef, NULL, 0, rect.size.height);
 
     CGContextSetLineWidth(context, lineWidth/8);
-    CGContextSetStrokeColorWithColor(context, iColor.CGColor);
     
     /// Draw Bars
     for (int barCount = 0; barCount < self.numberOfBars; barCount++) {
@@ -83,9 +83,17 @@
         CGRect barRect = CGRectMake(paddingBetweenBars + x, y, rectWidth, height);
         CGContextAddRect(context, barRect);
         
+        if(barCount % 2 == 0)
+        {
+            CGContextSetFillColorWithColor(context, evenColumnsColor.CGColor);
+        }
+        else
+        {
+            CGContextSetFillColorWithColor(context, oddColumnsColor.CGColor);
+        }
+        CGContextDrawPath(context, kCGPathFillStroke);
         
     }
-    CGContextDrawPath(context, kCGPathFillStroke);
     
     CGContextSetLineWidth(context, lineWidth);
     CGPathAddLineToPoint(pathRef, NULL, rect.size.width, rect.size.height);
