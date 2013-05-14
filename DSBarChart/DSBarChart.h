@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 
 @interface DSBarChart : UIView
+
 -(DSBarChart * )initWithFrame:(CGRect)frame
                         color:(UIColor*)theColor
                    references:(NSArray *)references
                     andValues:(NSArray *)values;
-@property (atomic) int numberOfBars;
-@property (atomic) float maxLen;
-@property (atomic, strong) UIColor *color;
-@property (atomic) NSArray* vals;
-@property (atomic) NSArray* refs;
+
+@property (nonatomic) float maxLen;
+@property (nonatomic) BOOL shouldCalculateMaxValue;
+@property (nonatomic) UIColor *color;
+@property (nonatomic) NSArray* vals;
+@property (nonatomic) NSArray* refs;
 @end

@@ -8,8 +8,13 @@
 
 #import "DSBarChart.h"
 
+@interface DSBarChart ()
+
+
+@end
+
 @implementation DSBarChart
-@synthesize color, numberOfBars, maxLen, refs, vals;
+
 
 -(DSBarChart *)initWithFrame:(CGRect)frame
                        color:(UIColor *)theColor
@@ -18,6 +23,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.shouldCalculateMaxValue = YES;
         self.color = theColor;
         self.vals = values;
         self.refs = references;
@@ -26,8 +32,8 @@
 }
 
 -(void)calculate{
-    self.numberOfBars = [self.vals count];
-    for (NSNumber *val in vals) {
+    NSAssert(self.vals.count == self.refs.count, @"expecting refs and vals to be the same size. found %i and %i", self.vals.count, self.refs.count);
+    for (NSNumber *val in self.vals) {
         float iLen = [val floatValue];
         if (iLen > self.maxLen) {
             self.maxLen = iLen;
@@ -38,10 +44,14 @@
 - (void)drawRect:(CGRect)rect
 {
     /// Drawing code
-    [self calculate];
+    if(self.shouldCalculateMaxValue)
+    {
+        [self calculate];
+    }
+    NSInteger numberOfBars = self.vals.count;
     float paddingBetweenBars = 0.0f;
     float lineWidth = 1.0f;
-    float rectWidth = (float)(rect.size.width-(self.numberOfBars * paddingBetweenBars )) / (float)self.numberOfBars;
+    float rectWidth = (float)(rect.size.width - (numberOfBars * paddingBetweenBars )) / (float)numberOfBars;
     CGContextRef context = UIGraphicsGetCurrentContext();
     float LBL_HEIGHT = 20.0f, iLen, x, heightRatio, height, y;
     UIColor * evenColumnsColor = [self.color colorWithAlphaComponent:0.25f];
@@ -57,10 +67,10 @@
     CGContextSetLineWidth(context, lineWidth/8);
     
     /// Draw Bars
-    for (int barCount = 0; barCount < self.numberOfBars; barCount++) {
+    for (int barCount = 0; barCount < numberOfBars; barCount++) {
         
         /// Calculate dimensions
-        iLen = [[vals objectAtIndex:barCount] floatValue];
+        iLen = [[self.vals objectAtIndex:barCount] floatValue];
         x = barCount * (rectWidth);
         heightRatio = iLen / self.maxLen;
         height = heightRatio * (rect.size.height - lineWidth - LBL_HEIGHT);
@@ -79,7 +89,7 @@
         
         /// Reference Label.
         UILabel *lblRef = [[UILabel alloc] initWithFrame:CGRectMake(barCount + x, rect.size.height - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
-        lblRef.text = [refs objectAtIndex:barCount];
+        lblRef.text = [self.refs objectAtIndex:barCount];
         lblRef.adjustsFontSizeToFitWidth = TRUE;
         lblRef.adjustsLetterSpacingToFitWidth = TRUE;
         lblRef.textColor = self.color;
@@ -89,7 +99,7 @@
         
         /// value Label
         UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(barCount + x, y - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
-        valueLabel.text = [NSString stringWithFormat:@"%@", [vals objectAtIndex:barCount]];
+        valueLabel.text = [NSString stringWithFormat:@"%@", [self.vals objectAtIndex:barCount]];
         valueLabel.adjustsFontSizeToFitWidth = TRUE;
         valueLabel.adjustsLetterSpacingToFitWidth = TRUE;
         valueLabel.textColor = columnColor;
