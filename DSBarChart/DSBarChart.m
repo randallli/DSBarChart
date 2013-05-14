@@ -8,8 +8,15 @@
 
 #import "DSBarChart.h"
 
+@interface DSBarChartInterestPoint : NSObject
+
+@property (nonatomic) NSInteger column;
+@property (nonatomic) CGFloat percentInColumn;
+@end
+
 @interface DSBarChart ()
 
+@property (nonatomic) NSMutableArray * interestPoints;
 
 @end
 
@@ -39,6 +46,21 @@
             self.maxLen = iLen;
         }
     }
+}
+
+- (void) addInterestPointWithText:(NSString *) text inColumn:(NSInteger) column percentageInColumn:(CGFloat ) percentInColumn
+{
+    if(self.interestPoints == nil)
+    {
+        self.interestPoints = [NSMutableArray array];
+    }
+    DSBarChartInterestPoint * interestPoint = [[DSBarChartInterestPoint alloc] init];
+    interestPoint.column = column;
+    interestPoint.percentInColumn = percentInColumn;
+    
+    [self.interestPoints addObject:interestPoint];
+    
+    [self setNeedsDisplay];
 }
 
 - (void)drawRect:(CGRect)rect
@@ -143,6 +165,9 @@
     frame.size.height = 0.25f;
     CGContextSetFillColorWithColor(context, pivotColor.CGColor);
     CGContextFillRect(context, frame);
+    
+    ///draw interest points
+    
 }
 
 

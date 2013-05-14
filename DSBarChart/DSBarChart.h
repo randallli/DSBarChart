@@ -15,6 +15,8 @@
                    references:(NSArray *)references
                     andValues:(NSArray *)values;
 
+- (void) addInterestPointWithText:(NSString *) text inColumn:(NSInteger) column percentageInColumn:(CGFloat ) percentInColumn;
+
 @property (nonatomic) float maxLen;
 @property (nonatomic) BOOL shouldCalculateMaxValue;
 @property (nonatomic) UIColor *color;
