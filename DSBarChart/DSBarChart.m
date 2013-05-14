@@ -39,7 +39,9 @@
 {
     /// Drawing code
     [self calculate];
-    float rectWidth = (float)(rect.size.width-(self.numberOfBars)) / (float)self.numberOfBars;
+    float paddingBetweenBars = 0.0f;
+    float lineWidth = 1.0f;
+    float rectWidth = (float)(rect.size.width-(self.numberOfBars * paddingBetweenBars )) / (float)self.numberOfBars;
     CGContextRef context = UIGraphicsGetCurrentContext();
     float LBL_HEIGHT = 20.0f, iLen, x, heightRatio, height, y;
     UIColor *iColor ;
@@ -67,9 +69,16 @@
         
         /// Set color and draw the bar
         iColor = [UIColor colorWithRed:(1 - heightRatio) green:(heightRatio) blue:(0) alpha:1.0];
-        CGContextSetFillColorWithColor(context, iColor.CGColor);
-        CGRect barRect = CGRectMake(barCount + x, y, rectWidth, height);
-        CGContextFillRect(context, barRect);
+        
+        CGContextSetFillColorWithColor(context, [iColor colorWithAlphaComponent:0.25f].CGColor);
+        CGRect barRect = CGRectMake(paddingBetweenBars + x, y, rectWidth, height);
+        //        CGContextFillRect(context, barRect);
+        CGContextSetLineWidth(context, lineWidth);
+        CGContextSetStrokeColorWithColor(context, iColor.CGColor);
+        CGContextAddRect(context, barRect);
+        
+        CGContextDrawPath(context, kCGPathFillStroke);
+        
     }
     
     /// pivot
