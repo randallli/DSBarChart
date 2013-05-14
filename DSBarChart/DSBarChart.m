@@ -67,6 +67,16 @@
         if (height < 0.1f) height = 1.0f;
         y = rect.size.height - height - LBL_HEIGHT;
         
+        UIColor * columnColor = nil;
+        if(barCount % 2 == 0)
+        {
+            columnColor = evenColumnsColor;
+        }
+        else
+        {
+            columnColor = oddColumnsColor;
+        }
+        
         /// Reference Label.
         UILabel *lblRef = [[UILabel alloc] initWithFrame:CGRectMake(barCount + x, rect.size.height - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
         lblRef.text = [refs objectAtIndex:barCount];
@@ -77,20 +87,24 @@
         lblRef.backgroundColor = [UIColor clearColor];
         [self addSubview:lblRef];
         
+        /// value Label
+        UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(barCount + x, y - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
+        valueLabel.text = [NSString stringWithFormat:@"%@", [vals objectAtIndex:barCount]];
+        valueLabel.adjustsFontSizeToFitWidth = TRUE;
+        valueLabel.adjustsLetterSpacingToFitWidth = TRUE;
+        valueLabel.textColor = columnColor;
+        [valueLabel setTextAlignment:NSTextAlignmentCenter];
+        valueLabel.backgroundColor = [UIColor clearColor];
+        [self addSubview:valueLabel];
+        
+        
         CGPathAddLineToPoint(pathRef, NULL, x, y);
         CGPathAddLineToPoint(pathRef, NULL, x + rectWidth, y);
 
         CGRect barRect = CGRectMake(paddingBetweenBars + x, y, rectWidth, height);
         CGContextAddRect(context, barRect);
         
-        if(barCount % 2 == 0)
-        {
-            CGContextSetFillColorWithColor(context, evenColumnsColor.CGColor);
-        }
-        else
-        {
-            CGContextSetFillColorWithColor(context, oddColumnsColor.CGColor);
-        }
+        CGContextSetFillColorWithColor(context, columnColor.CGColor);
         CGContextDrawPath(context, kCGPathFillStroke);
         
     }
