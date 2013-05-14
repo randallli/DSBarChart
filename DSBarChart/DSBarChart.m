@@ -14,6 +14,11 @@
 @property (nonatomic) CGFloat percentInColumn;
 @end
 
+@implementation DSBarChartInterestPoint
+
+
+@end
+
 @interface DSBarChart ()
 
 @property (nonatomic) NSMutableArray * interestPoints;
