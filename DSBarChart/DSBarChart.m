@@ -49,8 +49,11 @@
     iColor = [UIColor greenColor];
     CGContextSetFillColorWithColor(context, [iColor colorWithAlphaComponent:0.25f].CGColor);
     
-    CGContextMoveToPoint(context, 0, rect.size.height);
-    CGContextSetLineWidth(context, lineWidth);
+    CGMutablePathRef pathRef = CGPathCreateMutable();
+    
+    CGPathMoveToPoint(pathRef, NULL, 0, rect.size.height);
+
+    CGContextSetLineWidth(context, lineWidth/8);
     CGContextSetStrokeColorWithColor(context, iColor.CGColor);
     
     /// Draw Bars
@@ -60,7 +63,7 @@
         iLen = [[vals objectAtIndex:barCount] floatValue];
         x = barCount * (rectWidth);
         heightRatio = iLen / self.maxLen;
-        height = heightRatio * rect.size.height;
+        height = heightRatio * (rect.size.height - lineWidth - LBL_HEIGHT);
         if (height < 0.1f) height = 1.0f;
         y = rect.size.height - height - LBL_HEIGHT;
         
@@ -74,24 +77,21 @@
         lblRef.backgroundColor = [UIColor clearColor];
         [self addSubview:lblRef];
         
-        if(paddingBetweenBars == 0)
-        {
-            CGContextAddLineToPoint(context, x, y);
-            CGContextAddLineToPoint(context, x+rectWidth, y);
-            
-        }
-        else
-        {
-            CGRect barRect = CGRectMake(paddingBetweenBars + x, y, rectWidth, height);
-            CGContextAddRect(context, barRect);
-        }
+        CGPathAddLineToPoint(pathRef, NULL, x, y);
+        CGPathAddLineToPoint(pathRef, NULL, x + rectWidth, y);
+
+        CGRect barRect = CGRectMake(paddingBetweenBars + x, y, rectWidth, height);
+        CGContextAddRect(context, barRect);
         
         
     }
-    
-    CGContextAddLineToPoint(context, rect.size.width, rect.size.height);
-    CGContextClosePath(context);
     CGContextDrawPath(context, kCGPathFillStroke);
+    
+    CGContextSetLineWidth(context, lineWidth);
+    CGPathAddLineToPoint(pathRef, NULL, rect.size.width, rect.size.height);
+    CGPathCloseSubpath(pathRef);
+    CGContextAddPath(context, pathRef);
+    CGContextDrawPath(context, kCGPathStroke);
     
     /// pivot
     CGRect frame = CGRectZero;
@@ -108,7 +108,7 @@
     /// A line
     frame = rect;
     frame.size.height = 1.0;
-    CGContextSetFillColorWithColor(context, self.color.CGColor);
+    CGContextSetFillColorWithColor(context, [[UIColor redColor] colorWithAlphaComponent:0.25f].CGColor);
     CGContextFillRect(context, frame);
 }
 
