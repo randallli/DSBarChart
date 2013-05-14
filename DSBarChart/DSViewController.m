@@ -38,7 +38,7 @@
                                                    andValues:vals];
         chrt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
-        [chrt addInterestPointWithText:@"Randall's" inColumn:4 percentageInColumn:0.9f];
+        [chrt addInterestPointWithText:@"Mean" inColumn:4 percentageInColumn:0.9f];
         [ChartView addSubview:chrt];
         maxValue = chrt.maxLen;
     }
