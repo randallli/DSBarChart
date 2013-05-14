@@ -44,7 +44,7 @@
     {
         NSArray *vals = [NSArray arrayWithObjects:
                          [NSNumber numberWithInt:3],
-                         [NSNumber numberWithInt:4],
+                         [NSNumber numberWithInt:50],
                          [NSNumber numberWithInt:2],
                          [NSNumber numberWithInt:5],
                          [NSNumber numberWithInt:60],
