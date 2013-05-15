@@ -120,7 +120,7 @@
         }
         
         /// Reference Label.
-        UILabel *lblRef = [[UILabel alloc] initWithFrame:CGRectMake(barCount + x, rect.size.height - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
+        UILabel *lblRef = [[UILabel alloc] initWithFrame:CGRectMake(x, rect.size.height - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
         lblRef.text = [self.refs objectAtIndex:barCount];
         lblRef.adjustsFontSizeToFitWidth = TRUE;
         lblRef.adjustsLetterSpacingToFitWidth = TRUE;
@@ -130,7 +130,7 @@
         [self addSubview:lblRef];
         
         /// value Label
-        UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(barCount + x, y - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
+        UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
         valueLabel.text = [NSString stringWithFormat:@"%@", [self.vals objectAtIndex:barCount]];
         valueLabel.adjustsFontSizeToFitWidth = TRUE;
         valueLabel.adjustsLetterSpacingToFitWidth = TRUE;
