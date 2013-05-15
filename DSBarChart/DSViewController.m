@@ -30,14 +30,22 @@
                          [NSNumber numberWithInt:90],
                          [NSNumber numberWithInt:34],
                          [NSNumber numberWithInt:43],
+                         [NSNumber numberWithInt:14],
+                         [NSNumber numberWithInt:166],
+                         [NSNumber numberWithInt:244],
+                         [NSNumber numberWithInt:12],
+                         [NSNumber numberWithInt:52],
+                         [NSNumber numberWithInt:63],
+                         [NSNumber numberWithInt:32],
+                         [NSNumber numberWithInt:57],
                          nil];
-        NSArray *refs = [NSArray arrayWithObjects:@"M", @"Tu", @"W", @"Th", @"F", @"Sa", @"Su", nil];
+        NSArray *refs = [NSArray arrayWithObjects:@"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", @"10", @"11", @"12", @"13", @"14", @"15", nil];
         DSBarChart *chrt = [[DSBarChart alloc] initWithFrame:ChartView.bounds
                                                        color:[UIColor greenColor]
                                                   references:refs
                                                    andValues:vals];
         chrt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        
+        chrt.opaque = YES;
         [chrt addInterestPointWithText:@"Mean" inColumn:4 percentageInColumn:0.9f];
         [ChartView addSubview:chrt];
         maxValue = chrt.maxLen;
@@ -45,18 +53,26 @@
     
     {
         NSArray *vals = [NSArray arrayWithObjects:
+                         [NSNumber numberWithInt:0],
                          [NSNumber numberWithInt:3],
                          [NSNumber numberWithInt:50],
                          [NSNumber numberWithInt:2],
-                         [NSNumber numberWithInt:5],
-                         [NSNumber numberWithInt:60],
-                         [NSNumber numberWithInt:3],
-                         [NSNumber numberWithInt:4],
+                         [NSNumber numberWithInt:0],
+                         [NSNumber numberWithInt:0],
+                         [NSNumber numberWithInt:0],
+                         [NSNumber numberWithInt:0],
+                         [NSNumber numberWithInt:0],
+                         [NSNumber numberWithInt:0],
+                         [NSNumber numberWithInt:0],
+                         [NSNumber numberWithInt:0],
+                         [NSNumber numberWithInt:0],
+                         [NSNumber numberWithInt:0],
+                         [NSNumber numberWithInt:0],
                          nil];
-        NSArray *refs = [NSArray arrayWithObjects:@"M", @"Tu", @"W", @"Th", @"F", @"Sa", @"Su", nil];
+
         DSBarChart *chrt = [[DSBarChart alloc] initWithFrame:ChartView.bounds
                                                        color:[UIColor orangeColor]
-                                                  references:refs
+                                                  references:nil
                                                    andValues:vals];
         chrt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         chrt.opaque = NO;
