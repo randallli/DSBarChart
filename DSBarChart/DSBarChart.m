@@ -134,7 +134,7 @@
         valueLabel.text = [NSString stringWithFormat:@"%@", [self.vals objectAtIndex:barCount]];
         valueLabel.adjustsFontSizeToFitWidth = TRUE;
         valueLabel.adjustsLetterSpacingToFitWidth = TRUE;
-        valueLabel.textColor = columnColor;
+        valueLabel.textColor = [self.color colorWithAlphaComponent:.5];
         [valueLabel setTextAlignment:NSTextAlignmentCenter];
         valueLabel.backgroundColor = [UIColor clearColor];
         [self addSubview:valueLabel];
