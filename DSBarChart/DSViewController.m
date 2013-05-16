@@ -31,8 +31,8 @@
                          [NSNumber numberWithInt:34],
                          [NSNumber numberWithInt:43],
                          [NSNumber numberWithInt:14],
-                         [NSNumber numberWithInt:166],
-                         [NSNumber numberWithInt:244],
+                         [NSNumber numberWithInt:16],
+                         [NSNumber numberWithInt:24],
                          [NSNumber numberWithInt:12],
                          [NSNumber numberWithInt:52],
                          [NSNumber numberWithInt:63],
@@ -52,23 +52,7 @@
     }
     
     {
-        NSArray *vals = [NSArray arrayWithObjects:
-                         [NSNumber numberWithInt:0],
-                         [NSNumber numberWithInt:3],
-                         [NSNumber numberWithInt:50],
-                         [NSNumber numberWithInt:2],
-                         [NSNumber numberWithInt:0],
-                         [NSNumber numberWithInt:0],
-                         [NSNumber numberWithInt:0],
-                         [NSNumber numberWithInt:0],
-                         [NSNumber numberWithInt:0],
-                         [NSNumber numberWithInt:0],
-                         [NSNumber numberWithInt:0],
-                         [NSNumber numberWithInt:0],
-                         [NSNumber numberWithInt:0],
-                         [NSNumber numberWithInt:0],
-                         [NSNumber numberWithInt:0],
-                         nil];
+        NSArray *vals = [DSBarChart histogramData:@[@1, @23, @13, @44, @54, @46, @7, @8, @9, @10, @11, @12, @13, @14, @145] intoBuckets:10 ];
 
         DSBarChart *chrt = [[DSBarChart alloc] initWithFrame:ChartView.bounds
                                                        color:[UIColor orangeColor]
@@ -76,8 +60,8 @@
                                                    andValues:vals];
         chrt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         chrt.opaque = NO;
-        chrt.shouldCalculateMaxValue = NO;
-        chrt.maxLen = 90;
+//        chrt.shouldCalculateMaxValue = NO;
+//        chrt.maxLen = 90;
         
         [chrt addInterestPointWithText:@"Just Scored" inColumn:2 percentageInColumn:0.19f];
         

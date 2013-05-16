@@ -196,7 +196,21 @@
         [self addSubview:valueLabel];
     }
 }
-
++ (NSArray *) histogramData:(NSArray *) rawData intoBuckets:(NSUInteger) bucketSize
+{
+    NSMutableArray * histogram = [NSMutableArray arrayWithCapacity:bucketSize];
+    for (NSNumber * value in rawData) {
+        NSInteger bucket = [value integerValue]/bucketSize;
+        for(int ii = histogram.count; ii < bucket + 1; ii++)
+        {
+            [histogram addObject:@0];
+        }
+        NSNumber * exisitingCount = [histogram objectAtIndex:bucket];
+        [histogram replaceObjectAtIndex:bucket withObject:[NSNumber numberWithInteger:[exisitingCount integerValue] + 1]];
+    }
+    
+    return histogram;
+}
 
 
 

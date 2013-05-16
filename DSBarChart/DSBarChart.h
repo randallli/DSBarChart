@@ -17,6 +17,8 @@
 
 - (void) addInterestPointWithText:(NSString *) text inColumn:(NSInteger) column percentageInColumn:(CGFloat ) percentInColumn;
 
++ (NSArray *) histogramData:(NSArray *) sourceData intoBuckets:(NSUInteger) bucketSize;
+
 @property (nonatomic) float maxLen;
 @property (nonatomic) BOOL shouldCalculateMaxValue;
 @property (nonatomic) UIColor *color;
