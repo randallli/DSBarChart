@@ -25,4 +25,5 @@
 @property (nonatomic) UIColor *color;
 @property (nonatomic) NSArray* vals;
 @property (nonatomic) NSArray* refs;
+@property (nonatomic) BOOL showNumberValues;
 @end

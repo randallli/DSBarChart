@@ -107,7 +107,6 @@
         x = barCount * (rectWidth);
         heightRatio = iLen / self.maxLen;
         height = heightRatio * (rect.size.height - lineWidth - LBL_HEIGHT);
-        if (height < 0.1f) height = 1.0f;
         y = rect.size.height - height - LBL_HEIGHT;
         
         UIColor * columnColor = nil;
@@ -133,10 +132,15 @@
             [self addSubview:lblRef];
         }
         
-        if([value integerValue] != 0)
+        if(self.showNumberValues  && ([value integerValue] != 0))
         {
             /// value Label
-            UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
+            CGFloat labelY = y ;
+            if(rect.size.height - LBL_HEIGHT * 1.75f < labelY)
+            {
+                labelY = y - LBL_HEIGHT;
+            }
+            UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, labelY, rectWidth, LBL_HEIGHT)];
             valueLabel.text = [NSString stringWithFormat:@"%@", [self.vals objectAtIndex:barCount]];
             valueLabel.adjustsFontSizeToFitWidth = TRUE;
             valueLabel.adjustsLetterSpacingToFitWidth = TRUE;
