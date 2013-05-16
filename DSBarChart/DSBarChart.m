@@ -102,7 +102,8 @@
     for (int barCount = 0; barCount < numberOfBars; barCount++) {
         
         /// Calculate dimensions
-        iLen = [[self.vals objectAtIndex:barCount] floatValue];
+        NSNumber * value = [self.vals objectAtIndex:barCount];
+        iLen = [value floatValue];
         x = barCount * (rectWidth);
         heightRatio = iLen / self.maxLen;
         height = heightRatio * (rect.size.height - lineWidth - LBL_HEIGHT);
@@ -119,26 +120,31 @@
             columnColor = oddColumnsColor;
         }
         
-        /// Reference Label.
-        UILabel *lblRef = [[UILabel alloc] initWithFrame:CGRectMake(x, rect.size.height - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
-        lblRef.text = [self.refs objectAtIndex:barCount];
-        lblRef.adjustsFontSizeToFitWidth = TRUE;
-        lblRef.adjustsLetterSpacingToFitWidth = TRUE;
-        lblRef.textColor = self.color;
-        [lblRef setTextAlignment:NSTextAlignmentCenter];
-        lblRef.backgroundColor = [UIColor clearColor];
-        [self addSubview:lblRef];
+        if(self.refs)
+        {
+            /// Reference Label.
+            UILabel *lblRef = [[UILabel alloc] initWithFrame:CGRectMake(x, rect.size.height - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
+            lblRef.text = [self.refs objectAtIndex:barCount];
+            lblRef.adjustsFontSizeToFitWidth = TRUE;
+            lblRef.adjustsLetterSpacingToFitWidth = TRUE;
+            lblRef.textColor = self.color;
+            [lblRef setTextAlignment:NSTextAlignmentCenter];
+            lblRef.backgroundColor = [UIColor clearColor];
+            [self addSubview:lblRef];
+        }
         
-        /// value Label
-        UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
-        valueLabel.text = [NSString stringWithFormat:@"%@", [self.vals objectAtIndex:barCount]];
-        valueLabel.adjustsFontSizeToFitWidth = TRUE;
-        valueLabel.adjustsLetterSpacingToFitWidth = TRUE;
-        valueLabel.textColor = [self.color colorWithAlphaComponent:.5];
-        [valueLabel setTextAlignment:NSTextAlignmentCenter];
-        valueLabel.backgroundColor = [UIColor clearColor];
-        [self addSubview:valueLabel];
-        
+        if([value integerValue] != 0)
+        {
+            /// value Label
+            UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y - LBL_HEIGHT, rectWidth, LBL_HEIGHT)];
+            valueLabel.text = [NSString stringWithFormat:@"%@", [self.vals objectAtIndex:barCount]];
+            valueLabel.adjustsFontSizeToFitWidth = TRUE;
+            valueLabel.adjustsLetterSpacingToFitWidth = TRUE;
+            valueLabel.textColor = [self.color colorWithAlphaComponent:.5];
+            [valueLabel setTextAlignment:NSTextAlignmentCenter];
+            valueLabel.backgroundColor = [UIColor clearColor];
+            [self addSubview:valueLabel];
+        }
         
         CGPathAddLineToPoint(pathRef, NULL, x, y);
         CGPathAddLineToPoint(pathRef, NULL, x + rectWidth, y);
@@ -186,7 +192,7 @@
         
         
         /// value Label
-        UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xPosition - rectWidth, - LBL_HEIGHT, rectWidth * 2, LBL_HEIGHT)];
+        UILabel * valueLabel = [[UILabel alloc] initWithFrame:CGRectMake(xPosition - 100, - LBL_HEIGHT, 200, LBL_HEIGHT)];
         valueLabel.text = [NSString stringWithFormat:@"%@", interestPoint.text];
         valueLabel.adjustsFontSizeToFitWidth = TRUE;
         valueLabel.adjustsLetterSpacingToFitWidth = TRUE;
