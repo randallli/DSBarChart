@@ -196,6 +196,19 @@
         [self addSubview:valueLabel];
     }
 }
+
++ (NSInteger) maxValue:(NSArray *) sourceData
+{
+    NSInteger maxValue = NSIntegerMin;
+    for (NSNumber * value in sourceData) {
+        if(maxValue < [value integerValue])
+        {
+            maxValue = [value integerValue];
+        }
+    }
+    return maxValue;
+}
+
 + (NSArray *) histogramData:(NSArray *) rawData intoBuckets:(NSUInteger) bucketSize
 {
     NSMutableArray * histogram = [NSMutableArray arrayWithCapacity:bucketSize];
