@@ -80,6 +80,10 @@
     {
         [self calculate];
     }
+    for (UIView * subView in self.subviews) {
+        [subView removeFromSuperview];
+    }
+    
     NSInteger numberOfBars = self.vals.count;
     float paddingBetweenBars = 0.0f;
     float lineWidth = 1.0f;
