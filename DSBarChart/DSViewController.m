@@ -47,26 +47,27 @@
         chrt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         chrt.opaque = YES;
         [chrt addInterestPointWithText:@"Mean" inColumn:4 percentageInColumn:0.9f];
-        //[ChartView addSubview:chrt];
+        [ChartView addSubview:chrt];
         maxValue = chrt.maxLen;
     }
     
     {
-        NSMutableArray * scatterSample = [NSMutableArray arrayWithArray:@[@1, @23, @13, @44, @54, @46, @7, @8, @9, @10, @11, @12, @13, @14, @145]];
+        NSMutableArray * scatterSample = [NSMutableArray arrayWithArray:@[@1, @23, @13, @44, @54, @46, @7, @8, @9, @10, @11, @12, @13, @14, @545]];
         
-        for (int ii = 0; ii < 5000; ++ii) {
+        for (int ii = 0; ii < 50; ++ii) {
             [scatterSample addObject:[NSNumber numberWithInteger:arc4random_uniform(500)]];
         }
         
         NSInteger maxValue = [DSBarChart maxValue:scatterSample];
-        NSArray *vals = [DSBarChart histogramData:scatterSample intoBuckets:maxValue / 25];
+        NSArray *vals = [DSBarChart histogramData:scatterSample intoBuckets:maxValue / 20];
 
         DSBarChart *chrt = [[DSBarChart alloc] initWithFrame:ChartView.bounds
                                                        color:[UIColor orangeColor]
                                                   references:nil
                                                    andValues:vals];
         chrt.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        chrt.opaque = YES;
+        chrt.opaque = NO;
+        chrt.showNumberValues = NO;
 //        chrt.shouldCalculateMaxValue = NO;
 //        chrt.maxLen = 90;
         
